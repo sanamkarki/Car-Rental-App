@@ -1,0 +1,14 @@
+<template>
+    <lightning-card>
+        <template if:true={carsInfo}>
+            <template for:each={carsInfo} for:item="carItem">
+                <div key={carItem.Id}>
+                    {carItem.Name}
+                </div>
+            </template>
+        </template>
+        <template if:false={carsInfo}>
+            <div>No Data Found!!!</div>
+        </template>
+    </lightning-card>
+</template>

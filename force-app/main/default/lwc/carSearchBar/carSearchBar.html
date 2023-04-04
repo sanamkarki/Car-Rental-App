@@ -1,0 +1,12 @@
+<template>
+    <lightning-card title="">
+        <lightning-layout horizontal-align="center">
+            <lightning-combobox name="progress" label="Status" value={value} placeholder="Select Type"
+                options={typeOptions} onchange={handleChanges}></lightning-combobox>
+            <lightning-button label="New" class="newButtonClass" onclick={newButClick}></lightning-button>
+
+        </lightning-layout>
+
+    </lightning-card>
+
+</template>
