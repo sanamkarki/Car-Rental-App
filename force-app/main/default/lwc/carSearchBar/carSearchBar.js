@@ -1,14 +1,14 @@
-import { LightningElement, wire } from "lwc";
+import { LightningElement, wire, track } from "lwc";
 import getCarTypes from "@salesforce/apex/carSearchFormController.getCarTypes";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import { NavigationMixin } from "lightning/navigation";
 export default class CarSearchBar extends NavigationMixin(LightningElement) {
-  handleChange;
-  typeOptions;
+  @track typeOptions;
+
   @wire(getCarTypes)
   wiredCarTypes({ data, error }) {
     if (data) {
-      this.typeOptions = [{ label: "All Types", value: "All Types" }];
+      this.typeOptions = [{ value: "", label: "All Types" }];
       data.forEach(element => {
         const carTypeArray = {};
         carTypeArray.label = element.Name;
@@ -17,14 +17,18 @@ export default class CarSearchBar extends NavigationMixin(LightningElement) {
       });
     } else if (error) {
       console.error("ERROR", error);
-      this.showToast();
+      // this.showToast();
     }
   }
   handleChanges(event) {
-    const carTypeId = event.target.label;
-    console.log("car Id", carTypeId);
-    const carTypeEvent = new CustomEvent("carSelect", { detail: carTypeId });
+    const carTypeId = event.detail.value;
+    console.log("this is the car type ID...", carTypeId);
+
+    const carTypeEvent = new CustomEvent("carselect", {
+      detail: carTypeId
+    });
     this.dispatchEvent(carTypeEvent);
+    console.log("this is the car type ID after event...", carTypeId);
   }
   newButClick() {
     // navigation function
@@ -35,12 +39,12 @@ export default class CarSearchBar extends NavigationMixin(LightningElement) {
     });
   }
   // show toast when error occurs
-  showToast() {
-    const event = new ShowToastEvent({
-      title: "Toast message",
-      message: "Toast Message",
-      variant: "Error"
-    });
-    this.dispatchEvent(event);
-  }
+  // showToast() {
+  //   const event = new ShowToastEvent({
+  //     title: "Toast message",
+  //     message: "Toast Message",
+  //     variant: "Error"
+  //   });
+  //   this.dispatchEvent(event);
+  // }
 }

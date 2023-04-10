@@ -6,6 +6,7 @@ export default class CarSearchDisplay extends LightningElement {
   @track carsInfo;
   @wire(getCars, { carTypeId: "$carTypeId" })
   wiredCars({ data, error }) {
+    console.log("this is the car info", data);
     if (data) {
       this.carsInfo = data;
       console.log("this is the car info", this.carsInfo);
@@ -13,7 +14,7 @@ export default class CarSearchDisplay extends LightningElement {
     } else if (error) {
       this.showToast();
     }
-  }
+  } // first one is the para passed in apex, second is the above variable
   // show toast when error occurs
   showToast() {
     const event = new ShowToastEvent({
@@ -22,5 +23,12 @@ export default class CarSearchDisplay extends LightningElement {
       variant: "Error"
     });
     this.dispatchEvent(event);
+  }
+  get carsFound() {
+    if (this.carsInfo) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
