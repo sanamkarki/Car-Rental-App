@@ -1,16 +1,41 @@
 <template>
-    <lightning-card>
+    <lightning-layout horizontal-align="center" multiple-rows="">
         <template if:true={carsFound}>
             <template for:each={carsInfo} for:item="carItem">
-                <div key={carItem.Id}>
-                    <lightning-card>
-                        <div class="displayGrid"> {carItem.Name}</div>
-                    </lightning-card>
-                </div>
+                <lightning-layout-item size="12" padding="around-small" small-device-size="6" medium-device-size="4"
+                    large-device-size="2" key={carItem.Id}>
+
+
+
+
+                    <div> {carItem.Name}</div>
+
+                </lightning-layout-item>
             </template>
         </template>
         <template if:false={carsFound}>
             <div>No Data Found!!!</div>
         </template>
-    </lightning-card>
+
+    </lightning-layout>
 </template>
+
+
+<!-- <lightning-layout>
+            <lightning-layout-item size="12" padding="around-small" small-device-size="6" medium-device-size="4"
+                large-device-size="2">
+                <template if:true={carsFound}>
+                    <template for:each={carsInfo} for:item="carItem">
+                        <div key={carItem.Id}>
+                            <lightning-card>
+
+                                <div> {carItem.Name}</div>
+                            </lightning-card>
+                        </div>
+                    </template>
+                </template>
+                <template if:false={carsFound}>
+                    <div>No Data Found!!!</div>
+                </template>
+            </lightning-layout-item>
+        </lightning-layout> -->
